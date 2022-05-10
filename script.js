@@ -243,6 +243,7 @@ var sendLeadToDataBase = function () {
     year = new Date().toLocaleString('en-US', { year: 'numeric', timeZone: 'Europe/Madrid' });
     var leadToDB = __assign(__assign({}, lead), { status: 0, createDate: today, timestamp: timestamp, source: domain });
     console.log('lead to db => ', leadToDB);
+    goThanksPage();
 };
 var goThanksPage = function () {
     var isDownload = document.querySelector('#download-form') || false;
