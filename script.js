@@ -234,12 +234,6 @@ var sendLeadToCRM = function () { return __awaiter(void 0, void 0, void 0, funct
         }
     });
 }); };
-firebase.initializeApp({
-    apiKey: "AIzaSyCzHO8J6xRErJST5YDEuE8cN_6m-EpLRTo",
-    authDomain: "lead-manager-pozuelo.firebaseapp.com",
-    projectId: "lead-manager-pozuelo",
-});
-var db = firebase.firestore();
 var dataForm = {};
 var timestamp, today, month, year, source, currentUrl;
 var sendLeadToDataBase = function () {
@@ -248,30 +242,11 @@ var sendLeadToDataBase = function () {
     month = new Date().toLocaleString('en-US', { month: 'long', timeZone: 'Europe/Madrid' });
     year = new Date().toLocaleString('en-US', { year: 'numeric', timeZone: 'Europe/Madrid' });
     var leadToDB = __assign(__assign({}, lead), { status: 0, createDate: today, timestamp: timestamp, source: domain });
-    db.collection("leads-".concat(year, "-").concat(month)).add(leadToDB).then(function () {
-        goThanksPage();
-    }).catch(function (err) { return console.error(err); });
+    console.log('lead to db => ', leadToDB);
 };
 var goThanksPage = function () {
     var isDownload = document.querySelector('#download-form') || false;
-    if (isDownload) {
-        if (pathname.includes("/es/")) {
-            window.location.href = "/es/gracias-download/";
-        }
-        else {
-            window.location.href = "/en/thanks-download/";
-        }
-        ;
-    }
-    else {
-        if (pathname.includes("/es/")) {
-            window.location.href = "/es/gracias/";
-        }
-        else {
-            window.location.href = "/en/thanks/";
-        }
-        ;
-    }
+    console.log('lead => ', lead);
 };
 window.onload = function () {
     setSessionlandingPage();
