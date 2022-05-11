@@ -278,7 +278,5 @@ var goThanksPage = function () {
         }
     });
 };
-window.onload = function () {
-    setSessionlandingPage();
-    setUserPagesHistory();
-};
+setSessionlandingPage();
+setUserPagesHistory();
