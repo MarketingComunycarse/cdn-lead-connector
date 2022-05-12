@@ -74,6 +74,7 @@ if (testStorage('sessionStorage')) {
     (!sessionStorage.getItem("utmMedium")) ? sessionStorage.setItem('utmMedium', utmMedium) : '';
     (!sessionStorage.getItem("utmCampaign")) ? sessionStorage.setItem('utmCampaign', utmCampaign) : '';
 }
+;
 var setSessionlandingPage = function () {
     if (testStorage('sessionStorage')) {
         sessionLandingPage = sessionStorage.getItem("sessionLandingPage");
@@ -94,18 +95,21 @@ var setUserPagesHistory = function () {
         pageHistory = JSON.parse(pageHistoryFromLocalStorage);
         if (pageHistory) {
             pageHistory.unshift(pathname);
-            var lastTenpageHistory = pageHistory.slice(0, 10);
-            localStorage.setItem('pageHistory', JSON.stringify(lastTenpageHistory));
-            pageHistory = lastTenpageHistory;
+            var lastTenPageHistory = pageHistory.slice(0, 10);
+            localStorage.setItem('pageHistory', JSON.stringify(lastTenPageHistory));
+            pageHistory = lastTenPageHistory;
         }
         else {
             localStorage.setItem('pageHistory', JSON.stringify([pathname]));
             pageHistory = [pathname];
         }
+        ;
         var setpageHistoryInInput = function () {
             pageHistory.forEach(function (elem, index) {
-                var input = document.querySelector(".form-pagehistory-".concat(index + 1));
-                input.value = elem;
+                var inputs = document.querySelectorAll(".form-pagehistory-".concat(index + 1));
+                inputs.forEach(function (input) {
+                    input.value = elem;
+                });
             });
         };
         (window.innerWidth > 0 && document.querySelector('.form-pagehistory-1')) ? setpageHistoryInInput() : '';
@@ -138,12 +142,12 @@ var getApiData = function () { return __awaiter(void 0, void 0, void 0, function
                 console.log(err_1);
                 return [3, 5];
             case 5:
-                addDataToInputs();
+                addDataUbicToInputs();
                 return [2];
         }
     });
 }); };
-var addDataToInputs = function () {
+var addDataUbicToInputs = function () {
     var ubic = "".concat(apiData.city, ", ").concat(apiData.region_name, ", ").concat(apiData.country_name);
     if (document.querySelector('.form-ubic')) {
         var inputUbic = document.querySelectorAll('.form-ubic');
@@ -151,14 +155,22 @@ var addDataToInputs = function () {
             input.value = ubic;
         });
     }
-    var inputFullname = (document.querySelector('input[name="fullname"]'));
-    var inputFname = (document.querySelector('input[name="fname"]'));
-    var inputLname = (document.querySelector('input[name="lname"]'));
-    if (inputFullname && inputFname && inputLname) {
-        var nameArray = inputFullname.value.split(" ");
-        var lastName = (nameArray.slice(1, nameArray.length + 1)).join(' ');
-        inputFname.value = nameArray[0].trim();
-        inputLname.value = lastName.trim();
+};
+var addDataNameToImputs = function (fullname) {
+    var fullName = fullname;
+    var inputsFname = document.querySelectorAll('input[name="fname"]');
+    var inputsLname = document.querySelectorAll('input[name="lname"]');
+    if (fullName && (inputsFname.length > 0) && (inputsLname.length > 0)) {
+        var nameArray = fullName.split(" ");
+        var lastName_1 = (nameArray.slice(1, nameArray.length + 1)).join(' ');
+        var firstName_1 = nameArray[0].trim();
+        lastName_1 = lastName_1.trim();
+        inputsFname.forEach(function (fName) {
+            fName.value = firstName_1;
+        });
+        inputsLname.forEach(function (lName) {
+            lName.value = lastName_1;
+        });
     }
 };
 var setFormDataToLead = function (event) {
@@ -171,8 +183,9 @@ var setFormDataToLead = function (event) {
 var inputs = document.querySelectorAll('.wpcf7-form-control');
 if (inputs.length > 0 && window.innerWidth > 0) {
     inputs.forEach(function (input) {
-        input.addEventListener('input', function () {
+        input.addEventListener('input', function (event) {
             getApiData();
+            addDataNameToImputs(event.target.value);
         });
     });
     document.addEventListener('wpcf7mailsent', setFormDataToLead, false);
