@@ -46,7 +46,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-console.log('cdn active');
+console.log('cdn active => v0.0.9');
 var testStorage = function (typeStorage) {
     try {
         var storage = window[typeStorage];
@@ -185,7 +185,7 @@ if (inputs.length > 0 && window.innerWidth > 0) {
     inputs.forEach(function (input) {
         input.addEventListener('input', function (event) {
             getApiData();
-            (event.target.value == 'fullname') ? addDataNameToImputs(event.target.value) : '';
+            (event.target.name == 'fullname') ? addDataNameToImputs(event.target.value) : '';
         });
     });
     document.addEventListener('wpcf7mailsent', setFormDataToLead, false);
