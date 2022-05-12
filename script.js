@@ -185,7 +185,7 @@ if (inputs.length > 0 && window.innerWidth > 0) {
     inputs.forEach(function (input) {
         input.addEventListener('input', function (event) {
             getApiData();
-            addDataNameToImputs(event.target.value);
+            (event.target.value == 'fullname') ? addDataNameToImputs(event.target.value) : '';
         });
     });
     document.addEventListener('wpcf7mailsent', setFormDataToLead, false);
