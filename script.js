@@ -46,7 +46,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-console.log('cdn active => v0.0.9');
+console.log('cdn active => v1.0.0');
 var testStorage = function (typeStorage) {
     try {
         var storage = window[typeStorage];
@@ -69,10 +69,10 @@ var params = new URLSearchParams(paramsRaw);
 var utmSource = params.get('utm_source') || '';
 var utmMedium = params.get('utm_medium') || '';
 var utmCampaign = params.get('utm_campaign') || '';
-if (testStorage('sessionStorage')) {
-    (!sessionStorage.getItem("utmSource")) ? sessionStorage.setItem('utmSource', utmSource) : '';
-    (!sessionStorage.getItem("utmMedium")) ? sessionStorage.setItem('utmMedium', utmMedium) : '';
-    (!sessionStorage.getItem("utmCampaign")) ? sessionStorage.setItem('utmCampaign', utmCampaign) : '';
+if (testStorage('localStorage')) {
+    (!localStorage.getItem("utmSource")) ? localStorage.setItem('utmSource', utmSource) : '';
+    (!localStorage.getItem("utmMedium")) ? localStorage.setItem('utmMedium', utmMedium) : '';
+    (!localStorage.getItem("utmCampaign")) ? localStorage.setItem('utmCampaign', utmCampaign) : '';
 }
 ;
 var setSessionlandingPage = function () {
@@ -218,12 +218,12 @@ var sendLeadToCRM = function () { return __awaiter(void 0, void 0, void 0, funct
                 websites.forEach(function (web) {
                     (domain.includes(web)) ? lead.crm['theme'] = web : '';
                 });
-                lead.crm['utmSource'] = sessionStorage.getItem("utmSource") || '';
-                lead.crm['utmMedium'] = sessionStorage.getItem("utmMedium") || '';
-                lead.crm['utmCampaign'] = sessionStorage.getItem("utmCampaign") || '';
-                lead.crm['leadOrigin'] = 'Dpto. de Marketing';
+                lead.crm['utmSource'] = localStorage.getItem("utmSource") || '';
+                lead.crm['utmMedium'] = localStorage.getItem("utmMedium") || '';
+                lead.crm['utmCampaign'] = localStorage.getItem("utmCampaign") || '';
+                (lead.crm.utmMedium == 'cpc') ? lead.crm['leadOrigin'] = 'Dpto. de Marketing (Campaña CPC)' : lead.crm['leadOrigin'] = 'Dpto. de Marketing';
                 lead.crm = __assign(__assign({}, lead.crm), { firstname: lead.form.fname || '', lastname: lead.form.lname || '', email: lead.form.email || '', phone: lead.form.phone || '', comments: lead.form.comments || '', company: lead.form.company || '', job: lead.form.job || '', city: lead.api.city || '', zip: lead.api.zip || '', region: lead.api.region_name || '', country: lead.api.country_name || '', owner: '951c4e24-e2f3-e911-a811-000d3ab61098', uip: lead.api.ip || '', website: domain || '', leadGeneratedFrom: domain + pathname || '' });
-                apiFlow = "https://prod-87.westeurope.logic.azure.com/workflows/42427cf91fa146d4b26fded08e5df4de/triggers/manual/paths/invoke/leadToCrm?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=qc6dFzNlBS3lzcyQiuOLjKk32fhoyt_ab5JkIkDIUbE";
+                apiFlow = "https://prod-253.westeurope.logic.azure.com/workflows/a28d26b522dc4078be9230e528ec282b/triggers/manual/paths/invoke/leadToCrm?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=3pnhu6xcJk-ndLfms-Z8Hp_roUdmMj1rYMC3FahJKd0";
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
