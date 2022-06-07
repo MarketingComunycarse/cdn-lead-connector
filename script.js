@@ -46,7 +46,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-console.log('cdn active => v1.0.0');
+console.log('cdn active => v1.1.0');
 var testStorage = function (typeStorage) {
     try {
         var storage = window[typeStorage];
@@ -191,20 +191,15 @@ if (inputs.length > 0 && window.innerWidth > 0) {
     document.addEventListener('wpcf7mailsent', setFormDataToLead, false);
 }
 var sendLeadToCRM = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var currencyGuidData, a_1, websites, apiFlow, err_2;
+    var langs, a_1, websites, apiFlow, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                currencyGuidData = [
-                    { name: 'Euro', guid: '738427c2-15f3-e911-a819-000d3aba90f9' },
-                    { name: 'US Dollar', guid: 'f3bbb389-e20a-ea11-a811-000d3ab701f8' }
-                ];
-                if (lead.api.currency.name) {
-                    currencyGuidData.forEach(function (currency) {
-                        (lead.api.currency.name == currency.name) ? lead.crm['currencyGuid'] = currency.guid : '';
-                    });
-                }
-                ;
+                langs = lead.api.location.languages;
+                langs.forEach(function (lang) {
+                    (lang.code == 'es') ? lead.crm.langUser = 'es' : '';
+                });
+                (!lead.crm.langUser) ? lead.crm.langUser = lead.api.location.languages[0].code : '';
                 if (lead.pageHistory) {
                     a_1 = [];
                     lead.pageHistory.forEach(function (elem, index) {
@@ -243,7 +238,9 @@ var sendLeadToCRM = function () { return __awaiter(void 0, void 0, void 0, funct
                 err_2 = _a.sent();
                 console.log(err_2);
                 return [3, 4];
-            case 4: return [2];
+            case 4:
+                console.log(lead);
+                return [2];
         }
     });
 }); };
