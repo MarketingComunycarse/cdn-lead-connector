@@ -46,7 +46,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-console.log('cdn active => v1.1.0');
+console.log('cdn active => v1.1.1 => sin uso');
 var testStorage = function (typeStorage) {
     try {
         var storage = window[typeStorage];
@@ -196,10 +196,16 @@ var sendLeadToCRM = function () { return __awaiter(void 0, void 0, void 0, funct
         switch (_a.label) {
             case 0:
                 langs = lead.api.location.languages;
-                langs.forEach(function (lang) {
-                    (lang.code == 'es') ? lead.crm.langUser = 'es' : '';
-                });
-                (!lead.crm.langUser) ? lead.crm.langUser = lead.api.location.languages[0].code : '';
+                if (langs) {
+                    langs.forEach(function (lang) {
+                        (lang.code == 'es') ? lead.crm.langUser = 'es' : '';
+                    });
+                    (!lead.crm.langUser) ? lead.crm.langUser = lead.api.location.languages[0].code : '';
+                }
+                else {
+                    lead.crm.langUser = 'es';
+                }
+                ;
                 if (lead.pageHistory) {
                     a_1 = [];
                     lead.pageHistory.forEach(function (elem, index) {
